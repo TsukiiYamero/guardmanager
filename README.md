@@ -1,41 +1,30 @@
-# Proyecto Final GuardManager - Bootcamp Fullstack MINTIC
+# React + TypeScript + Vite
 
-## Descripción
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Este es el Proyecto Final para el Bootcamp Fullstack de MINTIC, centrado en la parte frontend. El objetivo de este proyecto es demostrar las habilidades y conocimientos adquiridos en el desarrollo de aplicaciones web utilizando tecnologías modernas de frontend.
+Currently, two official plugins are available:
 
-## Tecnologías Utilizadas
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **HTML5**: Para la estructura del contenido web.
-- **CSS3**: Para el diseño y la disposición visual.
-- **Typescript**: Para la interactividad y lógica del frontend.
-- **React**: Biblioteca de JavaScript para la construcción de interfaces de usuario.
-- **Tailwind**: Para realizar los estilos de manera mas comoda.
-- **React Router**: Para la navegación entre diferentes vistas de la aplicación.
-- **NextUi**: Framework CSS para un diseño responsivo y componentes estilizados.
+## Expanding the ESLint configuration
 
-## Instalación
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
+- Configure the top-level `parserOptions` property like this:
 
-1. Clona este repositorio:
-    ```bash
-    git clone https://github.com/tu-usuario/tu-repositorio.git
-    ```
-2. Navega al directorio del proyecto:
-    ```bash
-    cd tu-repositorio
-    ```
-3. Instala las dependencias necesarias:
-    ```bash
-    pnpm install
-    ```
-4. Inicia la aplicación:
-    ```bash
-    pnpm run dev
-    ```
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
-## Funcionalidades
-
-- **Autenticación**: Permite a los usuarios registrarse y iniciar sesión.
-- **Visualización de Datos**: Muestra datos obtenidos desde el backend de manera interactiva y dinámica.
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
