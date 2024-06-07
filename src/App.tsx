@@ -1,27 +1,31 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { Button, NextUIProvider } from "@nextui-org/react";
 
 function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+      <NextUIProvider>
+        <div>
+          <a href="https://vitejs.dev" target="_blank">
+            <img src={viteLogo} className="logo" alt="Vite logo" />
+          </a>
+          <a href="https://react.dev" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
 
 
-      <h1 className="text-4xl font-bold underline">
-        Hello world!
-      </h1>
+        <h1 className="text-4xl font-bold underline">
+          Hello world!
+        </h1>
 
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <Button color="primary" variant="ghost">
+          Ghost
+        </Button>
+      </NextUIProvider>
+
     </>
   )
 }
