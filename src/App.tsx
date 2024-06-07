@@ -18,7 +18,7 @@ function App() {
 
 
         <h1 className="text-4xl font-bold underline">
-          Hello world!
+          Hello world! A a
         </h1>
 
         <Button color="primary" variant="ghost">
