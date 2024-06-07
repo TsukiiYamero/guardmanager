@@ -1,4 +1,4 @@
-import type { LoginI } from "@/types/Login.types";
+import type { LoginI } from "@/types/login.types";
 import { createContext, useContext } from "react";
 
 export const AuthContext = createContext<LoginI>(null!);
