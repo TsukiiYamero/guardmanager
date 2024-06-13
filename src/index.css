@@ -113,3 +113,22 @@ body {
 ::-webkit-scrollbar-track {
   background: var(--neutral-color-secondary);
 }
+
+/* navegacion */
+.nav-temp {
+  ul {
+    display: flex;
+  }
+  li {
+    padding: 2px 6px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .active {
+    color: blue;
+  }
+}
+
