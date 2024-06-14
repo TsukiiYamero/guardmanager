@@ -11,3 +11,4 @@ export const routePaths = {
     /* auth */
     login: '/login'
 }
+
