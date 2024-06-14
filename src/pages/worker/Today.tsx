@@ -3,8 +3,9 @@ import { MainLayout } from "@/layouts/MainLayout"
 export const Today = () => {
     return (
         <MainLayout>
-            <div>
-                Today
+            <div className="p-[20px]">
+
+
             </div>
         </MainLayout>
     )
