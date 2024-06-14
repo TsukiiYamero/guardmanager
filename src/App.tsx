@@ -2,13 +2,16 @@ import { RouterProvider } from 'react-router-dom';
 
 import { NextUIProvider } from "@nextui-org/react";
 import { routerApp } from '@/routes/Routes';
+import { AuthProvider } from '@/store/auth/AuthProvider';
 
 function App() {
 
   return (
     <>
       <NextUIProvider>
-        <RouterProvider router={routerApp} />
+        <AuthProvider>
+          <RouterProvider router={routerApp} />
+        </AuthProvider>
       </NextUIProvider>
     </>
   )
