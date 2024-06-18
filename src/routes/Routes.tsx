@@ -1,3 +1,5 @@
+
+import { TablaHome } from "@/components/tablaHome/TablaHome";
 import { Locations } from "@/pages/admin/Locations";
 import { Schedules } from "@/pages/admin/Schedules";
 import { Workers } from "@/pages/admin/Workers";
@@ -20,6 +22,7 @@ export const routerApp = createBrowserRouter(
             {/* user */}
             <Route path={routePaths.today} element={<Today />} />
             <Route path={routePaths.week} element={<Week />} />
+            <Route path={routePaths.home} element={<TablaHome/>} />
             {/* admin */}
             <Route path={routePaths.schedules} element={<Schedules />} />
             <Route path={routePaths.locations} element={<Locations />} />

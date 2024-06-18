@@ -4,6 +4,7 @@ export const routePaths = {
     /* user */
     today: '/today',
     week: '/week',
+    home: '/home',
     /* admin */
     schedules: '/schedules',
     workers: '/workers',
