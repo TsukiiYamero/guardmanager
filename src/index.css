@@ -51,9 +51,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary-color: #ba68c8;
+  --primary-color: #9100c3;
   --primary-color-45:#ba68c859;
   --secondary-color: #181818;
+
+  --bg-soft: #faebff;
+
+  --text-color-dark: #191729f0;
+  --text-color-dark-67: hsla(247, 27%, 13%, 0.674);
   
   --neutral-color-primary: #646464;
   --neutral-color-alt-primary: #909090;

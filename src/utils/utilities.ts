@@ -10,6 +10,8 @@ export const routePaths = {
     workers: '/workers',
     locations: '/location',
     /* auth */
-    login: '/login'
+    login: '/login',
+
+    unauthorized: '/unauthorized'
 }
 
