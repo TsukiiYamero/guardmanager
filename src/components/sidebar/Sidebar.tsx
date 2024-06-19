@@ -59,6 +59,10 @@ export const Sidebar = () => {
         ? []
         : routes.filter(route => route.role.includes(user.role))
 
+    const logout = () => {
+        window.location.reload();
+    }
+
 
     return (
         <div className="w-[220px] min-h-[100vh]" style={{
@@ -90,7 +94,7 @@ export const Sidebar = () => {
                     </nav>
 
                     <div className="flex flex-col pb-3">
-                        <Button className="flex justify-start gap-4 text-[--text-color-dark]">
+                        <Button onClick={logout} className="flex justify-start gap-4 text-[--text-color-dark]">
                             <IconLogout />
 
                             <p>Log out</p>
