@@ -53,15 +53,11 @@ const routes: Array<{
 
 export const Sidebar = () => {
 
-    const { user } = useAuthContext();
+    const { user, logout } = useAuthContext();
 
     const filteredRoutes = !user
         ? []
         : routes.filter(route => route.role.includes(user.role))
-
-    const logout = () => {
-        window.location.reload();
-    }
 
 
     return (
