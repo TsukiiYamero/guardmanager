@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Amalita Mandifield",
+    "inicio": "2024-04-07 09:35:06",
+    "fin": "2023-10-01 14:27:37",
+    "ubicacion": "Duqiong"
+  },
+  {
+    "id": 2,
+    "name": "Ashlen Trathan",
+    "inicio": "2024-04-27 13:24:11",
+    "fin": "2023-12-02 12:56:24",
+    "ubicacion": "Lages"
+  },
+  {
+    "id": 3,
+    "name": "Pieter Attryde",
+    "inicio": "2023-09-17 05:27:35",
+    "fin": "2023-09-24 23:47:55",
+    "ubicacion": "Juradó"
+  },
+  {
+    "id": 4,
+    "name": "Glad Domenget",
+    "inicio": "2024-01-21 10:25:57",
+    "fin": "2023-12-17 06:17:26",
+    "ubicacion": "Nova Olímpia"
+  },
+  {
+    "id": 5,
+    "name": "Olivero Toothill",
+    "inicio": "2023-10-10 06:52:30",
+    "fin": "2024-05-12 23:13:44",
+    "ubicacion": "El Bolsón"
+  },
+  {
+    "id": 6,
+    "name": "Julianna Ricoald",
+    "inicio": "2023-06-25 09:29:54",
+    "fin": "2023-08-31 09:02:14",
+    "ubicacion": "Shibajiazi"
+  },
+  {
+    "id": 7,
+    "name": "Carolus Fuke",
+    "inicio": "2024-01-07 11:35:35",
+    "fin": "2023-12-02 05:24:50",
+    "ubicacion": "Xuling"
+  },
+  {
+    "id": 8,
+    "name": "Tova Coventry",
+    "inicio": "2024-03-18 17:18:06",
+    "fin": "2023-12-19 16:09:24",
+    "ubicacion": "Karmai"
+  },
+  {
+    "id": 9,
+    "name": "Glynn Rudolf",
+    "inicio": "2024-02-07 16:59:40",
+    "fin": "2024-03-26 20:58:56",
+    "ubicacion": "San Fernando de Atabapo"
+  },
+  {
+    "id": 10,
+    "name": "Chuck Mattielli",
+    "inicio": "2023-07-20 12:53:04",
+    "fin": "2024-04-29 01:02:33",
+    "ubicacion": "Ribas do Rio Pardo"
+  }
+]
