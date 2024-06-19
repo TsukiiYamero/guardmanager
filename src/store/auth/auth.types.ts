@@ -1,5 +1,10 @@
 export type TUserRole = 'user' | 'admin';
 
+export enum EUserRole {
+    USER = 'user',
+    ADMIN = 'admin',
+}
+
 export interface IUser {
     role: TUserRole;
     username: string;

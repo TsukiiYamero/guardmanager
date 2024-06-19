@@ -1,0 +1,14 @@
+.sidebar .item-menu {
+    font-weight: 500;
+    border-radius: .75rem;
+    color: var(--text-color-dark-67);
+}
+
+.sidebar .item-menu:has(.item-active) {
+    background-color: var(--bg-soft);
+    color: var(--primary-color);
+}
+
+.sidebar .item-menu:hover:not(:has(.item-active)) {
+    background-color: #f1edf38e;
+}
