@@ -8,17 +8,17 @@ interface IHeaderColumns {
     sortable: boolean
 }
 
-interface DataTableProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    items: Array<any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    handleEdit?: (item: any) => void
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    handleDelete?: (item: any) => void
+interface DataTableProps<T> {
+    items: Array<T>
+    handleEdit?: (item: T) => void
+    handleDelete?: (item: T) => void
 }
 
-export function DataTable({ items, handleEdit, handleDelete }: DataTableProps) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function DataTable<T extends Record<string, any>>({ items, handleEdit, handleDelete }: DataTableProps<T>) {
     const [headerColumns, setHeaderColumns] = useState<Array<IHeaderColumns> | null>()
+
+    // const handleButtonEdit = (item: any) => {}
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderCell = useCallback((item: any, columnKey: React.Key) => {
@@ -39,8 +39,8 @@ export function DataTable({ items, handleEdit, handleDelete }: DataTableProps) {
 
     useEffect(() => {
         const columns = (handleEdit !== undefined || handleDelete !== undefined) 
-            ? [...Object.keys(items[0]), "actions"] 
-            : Object.keys(items[0])
+            ? [...Object.keys(items[0] || ""), "actions"] 
+            : Object.keys(items[0] || "")
 
         setHeaderColumns(columns.map(column => ({
             name: column.toUpperCase(),
@@ -51,7 +51,7 @@ export function DataTable({ items, handleEdit, handleDelete }: DataTableProps) {
 
     return (
         <div className="mt-6">
-            {headerColumns &&
+            {headerColumns && headerColumns.length > 0 &&
                 <Table
                     aria-label="Horarios de los trabajadores"
                 // bottomContent={/* componente de paginación */}
@@ -71,7 +71,7 @@ export function DataTable({ items, handleEdit, handleDelete }: DataTableProps) {
                         {(item) => (
                             <TableRow key={item?.id}>
                                 {(columnKey) => (
-                                    <TableCell>{renderCell(item, columnKey)}{console.log("algo: ", item, columnKey)}</TableCell>
+                                    <TableCell>{renderCell(item, columnKey)}{/* {console.log("algo: ", item, columnKey)} */}</TableCell>
                                 )}
                             </TableRow>
                         )}
