@@ -1,5 +1,3 @@
-
-import { TablaHome } from "@/components/tablaHome/TablaHome";
 import { Locations } from "@/pages/admin/Locations";
 import { Schedules } from "@/pages/admin/Schedules";
 import { Workers } from "@/pages/admin/Workers";
@@ -13,6 +11,8 @@ import { routePaths } from "@/utils/utilities";
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
+import { TablaHome } from "@/components/tablaHome/TablaHome";
+
 
 
 export const routerApp = createBrowserRouter(
@@ -31,7 +31,7 @@ export const routerApp = createBrowserRouter(
             {/* user */}
             <Route path={routePaths.today} element={<Today />} />
             <Route path={routePaths.week} element={<Week />} />
-            <Route path={routePaths.home} element={<TablaHome/>} />
+            <Route path={routePaths.home} element={<TablaHome />} />
             <Route element={<PrivateRoute roles={['user']} />}>
                 <Route path={routePaths.today} element={<Today />} />
                 <Route path={routePaths.week} element={<Week />} />
