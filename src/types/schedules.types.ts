@@ -1,5 +1,5 @@
 export interface IScheduleItem {
-    id: number
+    // id: number
     name: string
     start: string
     end: string
