@@ -1,0 +1,58 @@
+.container-login-form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.container-login-form div p {
+    color: var(--error-color-primary-100);
+}
+
+p.error-msg-login {
+    position: relative;
+    bottom: 19px;
+    font-size: 0.875rem;
+    color: var(--error-color-primary-100);
+}
+
+/* bottom after login btn */
+
+.tos-privacy a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+p.forgot-msg-login {
+    position: relative;
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+    font-size: .75rem;
+    margin: 0;
+}
+
+p.forgot-msg-login:hover {
+    color: var(--primary-color);
+}
+
+/* social media */
+
+.login-social-media {
+    padding-top: 6px;
+
+}
+
+.social-media-btns {
+    padding-top: 32px;
+}
+
+.login-others-opts {
+    padding: 10px 28px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.login-others-opts span:hover {
+    color: var(--primary-color);
+}
