@@ -20,10 +20,10 @@ type Props = {
 
 export const LoginForm = ({
     loading, errorMessage,
-    onSubmit, handdleNotAUser,
+    handdleNotAUser,
     onForgotPassword
 }: Props) => {
-    const { register, handleSubmit, getValues, reset, control, formState: { errors } } = useForm({
+    const { control, formState: { errors } } = useForm({
         defaultValues: {
             email: '',
             password: ''

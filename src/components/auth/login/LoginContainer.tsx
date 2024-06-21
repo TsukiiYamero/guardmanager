@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { ForgotPasswordLayout } from '../ForgotPasswordLayout';
 import { LoginForm } from './LoginForm';
 import { useAuthHandler } from '../useAuthHandler';
 
