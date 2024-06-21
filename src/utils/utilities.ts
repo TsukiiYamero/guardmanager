@@ -1,3 +1,5 @@
+import { parseZonedDateTime } from "@internationalized/date"
+
 /* cosas que necesitemos por aparte */
 export const routePaths = {
     profile: '/profile',
@@ -19,3 +21,10 @@ export const PatternEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 // eslint-disable-next-line prefer-regex-literals
 /* 8digitos */
 export const PatternPassword = new RegExp(/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/g);
+
+export const formatInternationalizedDateToSQLDate = (date: string) => {
+    const zonedDateTime = parseZonedDateTime(date)
+    const formatedDate = `${zonedDateTime.year}-${String(zonedDateTime.month).padStart(2, '0')}-${String(zonedDateTime.day).padStart(2, '0')} ${String(zonedDateTime.hour).padStart(2, '0')}:${String(zonedDateTime.minute).padStart(2, '0')}:${String(zonedDateTime.second).padStart(2, '0')}`
+
+    return formatedDate
+}
