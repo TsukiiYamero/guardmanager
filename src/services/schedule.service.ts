@@ -1,6 +1,22 @@
-import { guardsData, locationData } from "@/mocks/schedules.json"
+import { guardsData, locationData, schedulesData } from "@/mocks/schedules.json"
 import { IGuard } from "@/types/guards.types"
 import { ILocations } from "@/types/locations.types"
+import { IScheduleItem } from "@/types/schedules.types"
+
+export async function getSchedulesData(): Promise<IScheduleItem[]> {
+    const schedules = schedulesData
+
+    const schedulesFormated = schedules.map(schedule => ({
+        id: schedule.id,
+        name: schedule.name,
+        start: schedule.start,
+        end: schedule.end,
+        location: schedule.location,
+    }))
+
+    console.log("datos recargados");
+    return schedulesFormated
+}
 
 export async function getGuardsData(): Promise<IGuard[]> {
     const guards = guardsData
@@ -28,4 +44,26 @@ export async function getLocationsData(): Promise<ILocations[]> {
     }))
 
     return locationsFormated
+}
+
+export async function updateSchedule(data: IScheduleItem) {
+    console.log("Updating schedule...");
+
+    return new Promise<void>((resolve) => {
+        setTimeout(() => {
+            console.log(data)
+            resolve()
+        }, 1500);
+    });
+}
+
+export async function addSchedule(data: IScheduleItem) {
+    console.log("Adding schedule...");
+    
+    return new Promise<void>((resolve) => {
+        setTimeout(() => {
+            console.log(data)
+            resolve()
+        }, 1500);
+    });
 }

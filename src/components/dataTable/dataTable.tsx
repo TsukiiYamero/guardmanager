@@ -1,6 +1,8 @@
 import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect,  useState } from "react"
 import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { PaginationSection } from "./PaginationSection"
+import { TopSection } from "./TopSection"
 
 interface IHeaderColumns {
     name: string
@@ -10,22 +12,24 @@ interface IHeaderColumns {
 
 interface DataTableProps<T> {
     items: Array<T>
+    handleAdd?: () => void
     handleEdit?: (item: T) => void
     handleDelete?: (item: T) => void
+    searchColumn: string
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function DataTable<T extends Record<string, any>>({ items, handleEdit, handleDelete }: DataTableProps<T>) {
+export function DataTable<T extends Record<string, any>>({ items, handleAdd, handleEdit, handleDelete, searchColumn }: DataTableProps<T>) {
     const [headerColumns, setHeaderColumns] = useState<Array<IHeaderColumns> | null>()
+    const [paginatedItems, setPaginatedItems] = useState<T[]>([])
+    const [filteredItems, setFilteredItems] = useState<T[]>([])
+    const [filterValue, setFilterValue] = useState("")
 
-    // const handleButtonEdit = (item: any) => {}
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const renderCell = useCallback((item: any, columnKey: React.Key) => {
+    const renderCell = useCallback((item: T, columnKey: React.Key) => {
         switch (columnKey) {
             case "actions":
                 return (
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 justify-center">
                         {handleEdit !== undefined 
                             && <Button onClick={() => handleEdit(item)} color="secondary">{<IconEdit />}</Button>}
                         {handleDelete !== undefined
@@ -36,6 +40,23 @@ export function DataTable<T extends Record<string, any>>({ items, handleEdit, ha
                 return item[columnKey as number]
         }
     }, [handleDelete, handleEdit])
+
+    const handlePagedItems = (currentItems: T[]) => {
+        setPaginatedItems(currentItems)
+    }
+
+    const handleChangeFilterValue = (value: string) => {
+        setFilterValue(value)
+    }
+
+    useEffect(() => {
+        if(filterValue.length < 3){
+            return setFilteredItems(items)
+        }
+        return setFilteredItems(items.filter(item => {
+            return item[searchColumn].toLowerCase().includes(filterValue.toLocaleLowerCase())
+        }))
+    },[filterValue, items, searchColumn])
 
     useEffect(() => {
         const columns = (handleEdit !== undefined || handleDelete !== undefined) 
@@ -54,22 +75,23 @@ export function DataTable<T extends Record<string, any>>({ items, handleEdit, ha
             {headerColumns && headerColumns.length > 0 &&
                 <Table
                     aria-label="Horarios de los trabajadores"
-                // bottomContent={/* componente de paginación */}
+                    bottomContent={<PaginationSection items={filteredItems} setItems={handlePagedItems} />}
+                    topContent={<TopSection setFilter={handleChangeFilterValue} handleAdd={handleAdd!} />}
                 >
                     <TableHeader columns={headerColumns}>
                         {(column) => (
                             <TableColumn
                                 key={column.uid}
-                                align={column.uid === "actions" ? "center" : "start"}
+                                className={column.uid === "actions" ? "text-center" : "text-start"}
                                 allowsSorting={column.sortable}
                             >{column.name}</TableColumn>
                         )}
                     </TableHeader>
                     <TableBody
-                        items={items}
+                        items={paginatedItems}
                     >
                         {(item) => (
-                            <TableRow key={item?.id}>
+                            <TableRow key={item?.id} className="hover:bg-gray-100">
                                 {(columnKey) => (
                                     <TableCell>{renderCell(item, columnKey)}{/* {console.log("algo: ", item, columnKey)} */}</TableCell>
                                 )}

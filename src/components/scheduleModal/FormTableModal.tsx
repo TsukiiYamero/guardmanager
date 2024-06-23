@@ -4,7 +4,6 @@ import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from
 import { useEffect, useMemo, useState } from "react";
 import { IGuard } from "@/types/guards.types";
 import { ILocations } from "@/types/locations.types";
-import { formatInternationalizedDateToSQLDate } from "@/utils/utilities";
 import { getGuardsData, getLocationsData } from "@/services/schedule.service";
 import { AutocompleteInput } from '../inputs/Autocomplete';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -14,20 +13,23 @@ import { createSchedule } from '@/helpers/schedulesValidation';
 
 
 interface FormTableModalProps {
-    data?: IScheduleItem
+    data?: IScheduleItem | null
     isOpen: boolean
     onOpenChange: () => void
     title: string
+    onSubmit?: (data: IScheduleItem) => Promise<unknown> | unknown
 }
 
 export function FormTableModal({
     data,
     isOpen,
     onOpenChange,
-    title
+    title,
+    onSubmit
 }: FormTableModalProps) {
     const [guards, setGuards] = useState<IGuard[]>([])
     const [locations, setLocations] = useState<ILocations[]>([])
+    const [loadingEdit, isLoadingEdit] = useState(false)
 
     useEffect(() => {
         getGuardsData().then(data => setGuards(data))
@@ -45,24 +47,10 @@ export function FormTableModal({
     })), [locations])
 
 
-    const handleSubmit: SubmitHandler<IScheduleItem> = (data) => {
-
-        const guardName = data.name
-
-        let endDate = data.end
-        if(endDate)
-            endDate = formatInternationalizedDateToSQLDate(endDate)!
-
-        let startDate = data.start
-        if(startDate)
-            startDate = formatInternationalizedDateToSQLDate(startDate)!
-
-        const location = data.location
-
-        console.log("guardName: ", guardName);
-        console.log("startDate: ", startDate);
-        console.log("endDate: ", endDate);
-        console.log("location: ", location);
+    const handleSubmit: SubmitHandler<IScheduleItem> = async (data) => {
+        isLoadingEdit(true)
+        await onSubmit!(data)
+        isLoadingEdit(false)
     }
 
     const methods = useForm<IScheduleItem>({
@@ -91,14 +79,14 @@ export function FormTableModal({
                                         />
                                     </div>
                                     <div className="form-table-item">
-                                        <CustomDateInput 
+                                        <CustomDateInput
                                             title='Inicio de turno'
                                             defaultDate={data?.start}
                                             name='start'
                                         />
                                     </div>
                                     <div className="form-table-item">
-                                        <CustomDateInput 
+                                        <CustomDateInput
                                             title='Fin de turno'
                                             defaultDate={data?.end}
                                             name='end'
@@ -125,9 +113,9 @@ export function FormTableModal({
                                 <Button
                                     color="secondary"
                                     type="submit"
-                                /* isLoading={true} */
+                                    isLoading={loadingEdit}
                                 >
-                                    Editar
+                                    {data ? "Editar" : "Añadir"}
                                 </Button>
                             </ModalFooter>
                         </form>

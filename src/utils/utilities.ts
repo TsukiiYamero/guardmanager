@@ -1,4 +1,4 @@
-import { parseZonedDateTime } from "@internationalized/date"
+import { ZonedDateTime, parseAbsolute, parseDateTime, parseZonedDateTime } from "@internationalized/date"
 
 /* cosas que necesitemos por aparte */
 export const routePaths = {
@@ -24,7 +24,14 @@ export const PatternPassword = new RegExp(/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/g);
 
 export const formatInternationalizedDateToSQLDate = (date: string | null | undefined) => {
     if(date){
-        const zonedDateTime = parseZonedDateTime(date)
+        let zonedDateTime
+
+        try {
+            zonedDateTime = parseZonedDateTime(date)
+        } catch (error) {
+            zonedDateTime = parseDateTime(date)
+            // console.log(zonedDateTime);
+        }
         const formatedDate = `${zonedDateTime.year}-${String(zonedDateTime.month).padStart(2, '0')}-${String(zonedDateTime.day).padStart(2, '0')} ${String(zonedDateTime.hour).padStart(2, '0')}:${String(zonedDateTime.minute).padStart(2, '0')}:${String(zonedDateTime.second).padStart(2, '0')}`
 
         return formatedDate
