@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/dataTable/DataTable";
+import { DataTable } from "@/components/dataTable/dataTable";
 import { FormTableModal } from "@/components/scheduleModal/FormTableModal";
 import { useConfirmDialog } from "@/customHooks/useConfirmDialog";
 import { MainLayout } from "@/layouts/MainLayout"
