@@ -1,1 +1,9 @@
-
+/* <div className="border flex items-center">
+<div className="border px-4 py-2 w-1/3">
+  <strong className="text-lg">Start:</strong> {horario.start}
+  <br />
+  <strong className="text-lg">Finish:</strong> {horario.finish}
+  <br />
+  <strong className="text-lg">Break:</strong> {horario.break}
+</div>
+</div> */

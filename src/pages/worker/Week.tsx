@@ -5,7 +5,7 @@ import { MainLayout } from "@/layouts/MainLayout"
 export const Week = () => {
     return (
         <MainLayout>
-            <div>
+             <div className="h-full flex items-center">
                 <TablaWeek/>
             </div>
         </MainLayout>
