@@ -13,6 +13,9 @@ import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
 
+
+
+
 export const routerApp = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -27,6 +30,8 @@ export const routerApp = createBrowserRouter(
             </Route>
 
             {/* user */}
+            <Route path={routePaths.today} element={<Today />} />
+            <Route path={routePaths.week} element={<Week />} />
             <Route element={<PrivateRoute roles={['user']} />}>
                 <Route path={routePaths.today} element={<Today />} />
                 <Route path={routePaths.week} element={<Week />} />
