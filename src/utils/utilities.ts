@@ -1,4 +1,4 @@
-import { parseDateTime, parseZonedDateTime } from "@internationalized/date"
+import { /* ZonedDateTime, parseAbsolute, */ parseDateTime, parseZonedDateTime } from "@internationalized/date"
 
 /* cosas que necesitemos por aparte */
 export const routePaths = {
@@ -6,6 +6,8 @@ export const routePaths = {
     /* user */
     today: '/today',
     week: '/week',
+    home: '/home',
+
     /* admin */
     schedules: '/schedules',
     workers: '/workers',
@@ -23,7 +25,7 @@ export const PatternEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 export const PatternPassword = new RegExp(/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/g);
 
 export const formatInternationalizedDateToSQLDate = (date: string | null | undefined) => {
-    if(date){
+    if (date) {
         let zonedDateTime
 
         try {
