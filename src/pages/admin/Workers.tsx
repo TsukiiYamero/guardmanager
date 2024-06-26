@@ -1,6 +1,7 @@
 import { DataTable } from "@/components/dataTable/dataTable"
 import { TextInput } from "@/components/inputs/Text"
 import { FormTableModal } from "@/components/modals/FormTableModal"
+import { useConfirmDialog } from "@/customHooks/useConfirmDialog"
 import { createWorker } from "@/helpers/Validations"
 import { MainLayout } from "@/layouts/MainLayout"
 import { addWorker, getWorkers, updateWorker } from "@/services/workers.service"
@@ -15,6 +16,7 @@ export const Workers = () => {
     const [modalData, setModalData] = useState<IGuard | null>(null)
     const [reloadData, setReloadData] = useState(false)
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
+    const { dialog, showDialog } = useConfirmDialog()
 
     const handleEditSubmit: SubmitHandler<IGuard> = async (data) => {
         await updateWorker(data)
@@ -24,7 +26,7 @@ export const Workers = () => {
     }
     const handleAddSubmit: SubmitHandler<IGuard> = async (data) => {
         await addWorker(data)
-        
+
         setReloadData(!reloadData)
         onOpenChange()
     }
@@ -38,8 +40,13 @@ export const Workers = () => {
         onOpen()
         console.log(item);
     }
-    const handleDeleteBtn = () => {
-        console.log("Item para eliminar");
+    const handleDeleteBtn = async(item: IGuard) => {
+        const confirmDeletion = await showDialog({
+            title: "Eliminar trabajador",
+            message: "¿Está seguro de eliminar el trabajador?"
+        })
+        if(confirmDeletion)
+            setWorkers(prevState => prevState.filter(worker => worker !== item))
     }
 
     useEffect(() => {
@@ -47,11 +54,12 @@ export const Workers = () => {
     }, [reloadData])
 
     // console.log("modalData: ", modalData);
-    
+
 
     return (
         <MainLayout>
-            <DataTable 
+            {dialog}
+            <DataTable
                 items={workers}
                 searchColumn="full_name"
                 handleAdd={handleAddBtn}
@@ -65,34 +73,36 @@ export const Workers = () => {
                 title={modalData ? "Editar horario" : "Agregar horario"}
                 onSubmit={modalData ? handleEditSubmit : handleAddSubmit}
                 resolver={createWorker}
+                defaultValues={{
+                    first_name: modalData?.first_name || "",
+                    last_name: modalData?.last_name || "",
+                    email: modalData?.email || "",
+                    cellphone: modalData?.cellphone || "",
+                    address: modalData?.address || ""
+                }}
             >
                 <div className="flex flex-col gap-3">
-                    <TextInput 
+                    <TextInput
                         name="first_name"
                         title="Nombre"
-                        initialValue={modalData?.first_name || ""}
                     />
-                    <TextInput 
+                    <TextInput
                         name="last_name"
                         title="Apellido"
-                        initialValue={modalData?.last_name || ""}
                     />
-                    <TextInput 
+                    <TextInput
                         name="email"
                         title="Correo"
-                        initialValue={modalData?.email || ""}
                         type="email"
                     />
-                    <TextInput 
+                    <TextInput
                         name="cellphone"
                         title="Número de celular"
-                        initialValue={modalData?.cellphone || ""}
-                        // type="number"
+                    // type="number"
                     />
-                    <TextInput 
+                    <TextInput
                         name="address"
                         title="Dirección"
-                        initialValue={modalData?.address || ""}
                     />
                 </div>
             </FormTableModal>

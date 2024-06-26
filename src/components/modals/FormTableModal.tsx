@@ -1,7 +1,7 @@
 import './formTableModal.css'
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
-import { ReactNode, useState } from "react";
-import { FormProvider, Resolver, SubmitHandler, useForm } from 'react-hook-form';
+import { ReactNode, useEffect, useState } from "react";
+import { DefaultValues, FormProvider, Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -14,6 +14,7 @@ interface FormTableModalProps<T extends Record<string, any>> {
     title: string
     onSubmit?: (data: T) => Promise<unknown> | unknown
     resolver?: yup.ObjectSchema<Partial<T>>
+    defaultValues?: DefaultValues<T>
     children: ReactNode
 }
 
@@ -25,6 +26,7 @@ export function FormTableModal<T extends Record<string, any>>({
     title,
     onSubmit,
     resolver,
+    defaultValues,
     children
 }: FormTableModalProps<T>) {
     const [loadingEdit, isLoadingEdit] = useState(false)
@@ -37,8 +39,15 @@ export function FormTableModal<T extends Record<string, any>>({
 
     const defaultSchema = yup.object().shape({}) as yup.ObjectSchema<Partial<T>>
     const methods = useForm<T>({
-        resolver: yupResolver(resolver || defaultSchema) as unknown as Resolver<T>
+        resolver: yupResolver(resolver || defaultSchema) as unknown as Resolver<T>,
+        defaultValues: defaultValues
     })
+
+    const { reset } = methods
+
+    useEffect(() => {
+        reset(defaultValues)
+    }, [defaultValues, reset])
 
     return (
         <Modal
