@@ -4,4 +4,5 @@ export interface IScheduleItem {
     start: string
     end: string
     location: string
+    shift: string
 }

@@ -25,14 +25,14 @@ export const TopSection = ({ setFilter, handleAdd }: TopSectionProps) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <Button 
+            {handleAdd && <Button 
                 className="right-0"
                 color="secondary"
                 onClick={handleAdd}
             >
                 Add New 
                 <IconPlus />
-            </Button>
+            </Button>}
         </div>
     )
 }

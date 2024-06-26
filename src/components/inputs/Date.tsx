@@ -46,7 +46,7 @@ export const CustomDateInput = ({
                     <>
                         <DateInput
                             variant="underlined"
-                            granularity="second"
+                            granularity="day"
                             value={field.value}
                             isInvalid={!valid}
                             errorMessage="Fecha inválida"
