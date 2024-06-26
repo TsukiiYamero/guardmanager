@@ -1,14 +1,14 @@
 
 import { IScheduleItem } from "@/types/schedules.types";
 import * as yup from "yup";
- 
+
 
 const requiredString = yup
   .string()
   .typeError("Debe ser un texto")
   .required("Es requerido");
 
-const requiredNumber = yup
+/* const requiredNumber = yup
   .number()
   .required("Es requerido")
   .typeError("Debe ser un número");
@@ -37,11 +37,11 @@ const longText = yup
 const requiredLongText = requiredString
   .min(5, "Mínimo 5 caracteres")
   .max(500, "Máximo 500 caracteres");
-
+ */
 export const createSchedule = yup.object<IScheduleItem>().shape({
-    name: requiredString,
-    start: requiredString,
-    end: requiredString,
-    location: requiredString
+  name: requiredString,
+  start: requiredString,
+  end: requiredString,
+  location: requiredString
 });
 
