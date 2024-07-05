@@ -3,42 +3,36 @@
 import { useHandlePassword } from '@/customHooks/useHandlePassword';
 import './login_layout.css';
 /* import { type FormEvent, useState } from 'react'; */
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from '@nextui-org/react';
 /* import { PatternPassword } from '@/utils'; */
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-import { PatternPassword } from '@/utils/utilities'
-import { useAuthContext } from '@/store/auth/AuthContext';
 
 type Props = {
     loading: boolean,
-    errorMessage: string,
+    errorMessage?: string | null,
     handdleNotAUser: () => void,
-    onSubmit: () => void;
+    onLogin: ({ username, password }: { username: string, password: string }) => void;
     onForgotPassword: () => void,
 }
 
 export const LoginForm = ({
     loading, errorMessage,
     handdleNotAUser,
-    onForgotPassword
+    onForgotPassword,
+    onLogin
 }: Props) => {
-    const { control, formState: { errors } } = useForm({
+    const { control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
-            email: '',
+            username: '',
             password: ''
         }
     });
 
-    const { login } = useAuthContext();
-
-    const loginAdmin = () => {
-        login({ username: 'admin', role: 'admin', id: 'admin' })
-    }
-
-    const loginUser = () => {
-        login({ username: 'user', role: 'user', id: 'user' })
-    }
+    /* const handleSubmit = (data: FormEventHandler<HTMLFormElement>) => {
+        onSubmit({ username: 'user', role: 'user', id: 'user' })
+    } */
+    const onSubmit: SubmitHandler<{ username: string, password: string }> = (data) => onLogin(data);
 
     const title = 'Iniciar Sesion';
 
@@ -48,38 +42,34 @@ export const LoginForm = ({
         <div className={'px-[1.5rem] md:px-[2.5rem] py-[1.75rem] w-full sm:max-w-[380px] md:max-w-[640px] rounded-[10px] border-1 border-[#e4e4e7]'}>
             <div className='w-full'>
 
-                {loading && <h1>Loading...</h1>}
-
                 <h2 className='text-[length:1.25rem] mb-7'>{title}</h2>
 
-                <p className={'error-msg-login'} >{errorMessage}</p>
+                <span className="block text-red-700 px-4 py-3">
+                    {errorMessage}
+                </span>
 
                 <form
-                    /* onSubmit={handleSubmit(onSubmit)} */
+                    onSubmit={handleSubmit(onSubmit)}
                     noValidate
                     className={'flex flex-col gap-5 max-w-xl w-full'}
                 >
                     <Controller
-                        name="email"
+                        name="username"
                         control={control}
                         rules={{
-                            required: 'Ingresa tu Email',
-                            pattern: {
-                                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                                message: 'Ingresa un email valido'
-                            }
+                            required: 'Ingresa tu username',
                         }}
                         render={({ field }) => (
                             <Input
                                 size={'md'}
-                                type="email"
-                                label="Email"
+                                type="text"
+                                label="Username"
                                 variant="bordered"
                                 fullWidth
                                 className="md:w-[400px]"
-                                isInvalid={!!errors.email}
-                                color={errors.email ? 'danger' : 'success'}
-                                errorMessage={errors.email?.message}
+                                isInvalid={!!errors.username}
+                                color={errors.username ? 'danger' : 'success'}
+                                errorMessage={errors.username?.message}
                                 {...field}
                             />
                         )}
@@ -91,8 +81,9 @@ export const LoginForm = ({
                         rules={{
                             required: 'Ingresa tu password',
                             pattern: {
-                                value: PatternPassword,
-                                message: 'Tu Password necesita tener almenos 8 caracteres, debes incluir 1 letra y 1 numero'
+                                /* value: PatternPassword, */
+                                value: /^.{9,}$/g,
+                                message: 'Tu Password necesita tener mas de 8 caracteres '
                             }
                         }}
                         render={({ field }) => (
@@ -127,23 +118,13 @@ export const LoginForm = ({
                         fullWidth
                         color='primary'
                         disabled={loading}
-                        onClick={loginUser}
+                        type="submit"
                         variant="solid"
                         className='mt-2'
                     >
-                        Trabajador
+                        Ingresar
                     </Button>
 
-                    <Button
-                        fullWidth
-                        color='primary'
-                        disabled={loading}
-                        onClick={loginAdmin}
-                        variant="solid"
-                        className='mt-2'
-                    >
-                        Admin
-                    </Button>
                 </form>
 
             </div>

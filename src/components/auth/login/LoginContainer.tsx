@@ -1,11 +1,11 @@
 import { LoginForm } from './LoginForm';
-import { useAuthHandler } from '../useAuthHandler';
+import { useLogin } from '@/customHooks/useUser';
+import { useAuthContext } from '@/store/auth/AuthContext';
+import { useEffect } from 'react';
 
 export const LoginContainer = () => {
-
-    const {
-        loading, errorMessage
-    } = useAuthHandler();
+    const { user, fetchLogin, error, loading } = useLogin();
+    const { login } = useAuthContext();
 
     const forgotPassword = () => {
 
@@ -15,16 +15,27 @@ export const LoginContainer = () => {
 
     };
 
-    const onSubmit = () => {
-
+    const onSubmit = ({ username, password }: { username: string, password: string }) => {
+        fetchLogin({ username, password })
     };
+
+    useEffect(() => {
+        if (user) {
+            login({
+                username: user.user,
+                id: user.id,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                role: user.role as any
+            });
+        }
+    }, [user]);
 
     return (
         <>
             <LoginForm
                 loading={loading}
-                errorMessage={errorMessage}
-                onSubmit={onSubmit}
+                errorMessage={error}
+                onLogin={onSubmit}
                 handdleNotAUser={handdleNotAUser}
                 onForgotPassword={forgotPassword}
             />

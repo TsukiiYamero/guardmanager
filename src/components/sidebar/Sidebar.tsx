@@ -5,6 +5,7 @@ import { IconCalendarEvent, IconHome, IconLogout, IconMapPin, IconSettings, Icon
 import { Button } from "@nextui-org/react";
 import { useAuthContext } from "@/store/auth/AuthContext";
 import { EUserRole, TUserRole } from "@/store/auth/auth.types";
+import { useLogout } from "@/customHooks/useUser";
 
 
 const routes: Array<{
@@ -53,7 +54,8 @@ const routes: Array<{
 
 export const Sidebar = () => {
 
-    const { user, logout } = useAuthContext();
+    const { user } = useAuthContext();
+    const logout = useLogout();
 
     const filteredRoutes = !user
         ? []

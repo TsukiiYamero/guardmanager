@@ -11,6 +11,7 @@ import { routePaths } from "@/utils/utilities";
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
+import { EUserRole } from "@/store/auth/auth.types";
 
 
 
@@ -25,19 +26,19 @@ export const routerApp = createBrowserRouter(
                 <Route index element={<Login />} />
             </Route>
 
-            <Route element={<PrivateRoute roles={['user', 'admin']} />}>
+            <Route element={<PrivateRoute roles={[EUserRole.USER, EUserRole.ADMIN]} />}>
                 <Route path={routePaths.profile} element={<Profile />} />
             </Route>
 
             {/* user */}
             <Route path={routePaths.today} element={<Today />} />
             <Route path={routePaths.week} element={<Week />} />
-            <Route element={<PrivateRoute roles={['user']} />}>
+            <Route element={<PrivateRoute roles={[EUserRole.USER]} />}>
                 <Route path={routePaths.today} element={<Today />} />
                 <Route path={routePaths.week} element={<Week />} />
             </Route>
             {/* admin */}
-            <Route element={<PrivateRoute roles={['admin']} />}>
+            <Route element={<PrivateRoute roles={[EUserRole.ADMIN]} />}>
                 <Route path={routePaths.schedules} element={<Schedules />} />
                 <Route path={routePaths.locations} element={<Locations />} />
                 <Route path={routePaths.workers} element={<Workers />} />
