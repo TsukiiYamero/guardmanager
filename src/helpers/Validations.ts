@@ -1,4 +1,5 @@
 
+import { IUsers } from "@/types/users.types";
 import { IGuard } from "@/types/guards.types";
 import { IScheduleItem } from "@/types/schedules.types";
 import * as yup from "yup";
@@ -40,11 +41,11 @@ const phonenumber = yup
 // const longText = yup
 //   .string()
 //   .typeError("Debe ser un texto")
-//   .min(3, "Mínimo 3 caracteres")
-//   .max(500, "Máximo 500 caracteres");
+//   .min(8, "Mínimo 8 caracteres")
+//   .max(500, "Máximo 500 caracteres")
 
 const requiredLongText = requiredString
-  .min(5, "Mínimo 5 caracteres")
+  .min(8, "Mínimo 8 caracteres")
   .max(500, "Máximo 500 caracteres");
 
 export const createSchedule = yup.object<IScheduleItem>().shape({
@@ -55,10 +56,32 @@ export const createSchedule = yup.object<IScheduleItem>().shape({
   shift: requiredString
 });
 
-export const createWorker = yup.object({
+export const createWorkerValidation = yup.object({
   first_name: requiredString,
   last_name: requiredString,
   email: requiredEmail,
   cellphone: phonenumber,
-  address: requiredLongText
-}) as yup.ObjectSchema<Partial<IGuard>>;
+  address: requiredLongText,
+  username: requiredLongText,
+  password: requiredLongText
+  
+}) as yup.ObjectSchema<Partial<IGuard & IUsers>>;
+
+export const updateWorkerValidation = yup.object({
+  first_name: requiredString,
+  last_name: requiredString,
+  email: requiredEmail,
+  cellphone: phonenumber,
+  address: requiredLongText,
+  username: requiredLongText,
+  password: yup
+    .string()
+    .when((val) => {
+      if(val[0] && val[0]?.length > 0){
+        return requiredLongText
+      }
+      return yup
+        .string()
+        .optional()
+    })
+}) as yup.ObjectSchema<Partial<IGuard & IUsers>>;
