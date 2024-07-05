@@ -1,7 +1,7 @@
-export type TUserRole = 'user' | 'admin';
+export type TUserRole = 'guard' | 'admin';
 
 export enum EUserRole {
-    USER = 'user',
+    USER = 'guard',
     ADMIN = 'admin',
 }
 

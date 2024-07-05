@@ -2,9 +2,10 @@ import { routePaths } from "@/utils/utilities"
 import './sidebar.css';
 import { NavLink } from "react-router-dom"
 import { IconCalendarEvent, IconHome, IconLogout, IconMapPin, IconSettings, IconUsers } from '@tabler/icons-react';
-import { Button } from "@nextui-org/react";
+import { Button, useUser } from "@nextui-org/react";
 import { useAuthContext } from "@/store/auth/AuthContext";
 import { EUserRole, TUserRole } from "@/store/auth/auth.types";
+import { useLogout } from "@/customHooks/useUser";
 
 
 const routes: Array<{
@@ -53,7 +54,8 @@ const routes: Array<{
 
 export const Sidebar = () => {
 
-    const { user, logout } = useAuthContext();
+    const { user } = useAuthContext();
+    const logout = useLogout();
 
     const filteredRoutes = !user
         ? []
