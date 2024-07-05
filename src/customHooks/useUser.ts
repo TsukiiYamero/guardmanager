@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLogin } from "@/services/login.service";
 import { getLogout } from "@/services/logout.service";
-import { IUser } from "@/store/auth/auth.types";
 import { useAuthContext } from "@/store/auth/AuthContext";
 import { useState } from "react"
 

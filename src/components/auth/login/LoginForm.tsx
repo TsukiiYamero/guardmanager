@@ -7,7 +7,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from '@nextui-org/react';
 /* import { PatternPassword } from '@/utils'; */
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-import { PatternPassword } from '@/utils/utilities'
 
 type Props = {
     loading: boolean,
