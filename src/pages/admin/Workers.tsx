@@ -2,24 +2,26 @@ import { DataTable } from "@/components/dataTable/dataTable"
 import { TextInput } from "@/components/inputs/Text"
 import { FormTableModal } from "@/components/modals/FormTableModal"
 import { useConfirmDialog } from "@/customHooks/useConfirmDialog"
-import { createWorker } from "@/helpers/Validations"
+import { createWorkerValidation, updateWorkerValidation } from "@/helpers/Validations"
 import { MainLayout } from "@/layouts/MainLayout"
-import { addWorker, getWorkers, updateWorker } from "@/services/workers.service"
+import { addWorker, getWorkers, removeWorker, updateWorker } from "@/services/workers.service"
 import { IGuard } from "@/types/guards.types"
+import { IUsers } from "@/types/users.types"
 import { useDisclosure } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import { SubmitHandler } from "react-hook-form"
 
 
 export const Workers = () => {
-    const [workers, setWorkers] = useState<IGuard[]>([])
-    const [modalData, setModalData] = useState<IGuard | null>(null)
+    const [workers, setWorkers] = useState<(IGuard & IUsers)[]>([])
+    const [modalData, setModalData] = useState<(IGuard & IUsers) | null>(null)
     const [reloadData, setReloadData] = useState(false)
+    const [currentItemId, setCurrentItemId] = useState(0)
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
     const { dialog, showDialog } = useConfirmDialog()
 
     const handleEditSubmit: SubmitHandler<IGuard> = async (data) => {
-        await updateWorker(data)
+        await updateWorker(data, currentItemId)
 
         setReloadData(!reloadData)
         onOpenChange()
@@ -35,18 +37,22 @@ export const Workers = () => {
         onOpen()
         console.log("Item para agregar");
     }
-    const handleEditBtn = (item: IGuard) => {
+    const handleEditBtn = (item: IGuard & IUsers) => {
         setModalData(item)
+        setCurrentItemId(item?.id || 0)
         onOpen()
-        console.log(item);
     }
     const handleDeleteBtn = async(item: IGuard) => {
         const confirmDeletion = await showDialog({
             title: "Eliminar trabajador",
             message: "¿Está seguro de eliminar el trabajador?"
         })
-        if(confirmDeletion)
-            setWorkers(prevState => prevState.filter(worker => worker !== item))
+        if(confirmDeletion){
+            await removeWorker(item.id)
+            setReloadData(!reloadData)
+            console.log(item);
+            // setWorkers(prevState => prevState.filter(worker => worker !== item))
+        }
     }
 
     useEffect(() => {
@@ -72,13 +78,15 @@ export const Workers = () => {
                 data={modalData}
                 title={modalData ? "Editar horario" : "Agregar horario"}
                 onSubmit={modalData ? handleEditSubmit : handleAddSubmit}
-                resolver={createWorker}
+                resolver={modalData ? updateWorkerValidation : createWorkerValidation}
                 defaultValues={{
                     first_name: modalData?.first_name || "",
                     last_name: modalData?.last_name || "",
                     email: modalData?.email || "",
                     cellphone: modalData?.cellphone || "",
-                    address: modalData?.address || ""
+                    address: modalData?.address || "",
+                    username: modalData?.username || "",
+                    password: ""
                 }}
             >
                 <div className="flex flex-col gap-3">
@@ -103,6 +111,14 @@ export const Workers = () => {
                     <TextInput
                         name="address"
                         title="Dirección"
+                    />
+                    <TextInput
+                        name="username"
+                        title="Nombre de usuario"
+                    />
+                    <TextInput
+                        name="password"
+                        title="Contraseña"
                     />
                 </div>
             </FormTableModal>
