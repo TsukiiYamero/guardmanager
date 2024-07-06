@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLogin } from "@/services/login.service";
 import { getLogout } from "@/services/logout.service";
+import { EUserRole, IUser } from "@/store/auth/auth.types";
 import { useAuthContext } from "@/store/auth/AuthContext";
 import { useState } from "react"
 
 export const useLogin = () => {
-    const [user, setUser] = useState<{ user: string, id: string, role: string } | null>(null);
+    const [data, setData] = useState<{ user: { user: string, role: EUserRole, id: string }, token: string } | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -13,8 +14,8 @@ export const useLogin = () => {
         try {
             setLoading(true);
             const data = await getLogin({ username, password });
-            if (data.user)
-                setUser(data.user);
+            if (data)
+                setData(data);
             else {
                 setError('Opps... Algo a salido mal');
                 console.error('Faltan datos para setear el usuario');
@@ -28,7 +29,7 @@ export const useLogin = () => {
     };
 
     return {
-        user,
+        data,
         loading,
         error,
         fetchLogin

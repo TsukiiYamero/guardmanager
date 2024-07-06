@@ -1,4 +1,5 @@
 import { /* ZonedDateTime, parseAbsolute, */ parseDateTime, parseZonedDateTime } from "@internationalized/date"
+import { tokenName } from "@/api/config"
 
 /* cosas que necesitemos por aparte */
 export const routePaths = {
@@ -39,4 +40,19 @@ export const formatInternationalizedDateToSQLDate = (date: string | null | undef
         return formatedDate
     }
     return date
+}
+
+
+export const getToken = () => {
+    return localStorage.getItem(tokenName) ? localStorage.getItem(tokenName) : ''
+}
+
+export const setToken = (token: string) => {
+    if (!token) return;
+
+    localStorage.setItem(tokenName, token)
+}
+
+export const removeToken = () => {
+    localStorage.removeItem(tokenName)
 }
