@@ -25,7 +25,7 @@ export const LoginContainer = () => {
         if (data?.user && data.token) {
             const user = data.user;
             login({
-                username: user.user,
+                user: user.user,
                 id: user.id,
                 role: user.role
             }, data.token);

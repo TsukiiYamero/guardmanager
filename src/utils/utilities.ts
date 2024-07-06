@@ -1,5 +1,6 @@
 import { /* ZonedDateTime, parseAbsolute, */ parseDateTime, parseZonedDateTime } from "@internationalized/date"
-import { tokenName } from "@/api/config"
+import { tokenName, userName } from "@/api/config"
+import { EUserRole } from "@/store/auth/auth.types";
 
 /* cosas que necesitemos por aparte */
 export const routePaths = {
@@ -55,4 +56,24 @@ export const setToken = (token: string) => {
 
 export const removeToken = () => {
     localStorage.removeItem(tokenName)
+}
+
+export const getUser = () => {
+    const userJson = localStorage.getItem(userName) ? localStorage.getItem(userName) : undefined;
+    if (!userJson)
+        return userJson
+
+    return JSON.parse(userJson)
+}
+
+export const setUser = (data: { user: string, role: EUserRole, id: string }) => {
+    if (!data) return;
+
+    const dataToJSON = JSON.stringify(data)
+
+    localStorage.setItem(userName, dataToJSON);
+}
+
+export const removeUser = () => {
+    localStorage.removeItem(userName)
 }

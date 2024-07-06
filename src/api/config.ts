@@ -1,6 +1,8 @@
 /* configuracion de la conexion de la api */
 
+/* localstorage Names */
 export const tokenName = 'authToken';
+export const userName = 'authUser';
 
 export const API_CONFIG = {
     baseUrl: 'https://guardmanager.jeanpaultc.tech',
