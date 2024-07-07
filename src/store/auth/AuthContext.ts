@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 
 interface AuthContextType {
     user: IUser | null;
-    login: (user: IUser) => void;
+    login: (user: IUser, token: string) => void;
     logout: () => void;
 }
 

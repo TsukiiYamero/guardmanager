@@ -1,4 +1,4 @@
-export type TUserRole = 'guard' | 'admin';
+export type TUserRole = EUserRole.USER | EUserRole.ADMIN;
 
 export enum EUserRole {
     USER = 'guard',
@@ -7,7 +7,7 @@ export enum EUserRole {
 
 export interface IUser {
     role: TUserRole;
-    username: string;
+    user: string;
     id: string;
 }
 export enum EAuthActionType {

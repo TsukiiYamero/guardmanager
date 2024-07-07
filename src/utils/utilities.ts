@@ -1,12 +1,14 @@
 import { /* ZonedDateTime, parseAbsolute, */ parseDateTime, parseZonedDateTime } from "@internationalized/date"
+import { tokenName, userName } from "@/api/config"
+import { EUserRole } from "@/store/auth/auth.types";
 
 /* cosas que necesitemos por aparte */
 export const routePaths = {
     profile: '/profile',
+    index: '/',
     /* user */
     today: '/today',
     week: '/week',
-    home: '/home',
 
     /* admin */
     schedules: '/schedules',
@@ -39,4 +41,39 @@ export const formatInternationalizedDateToSQLDate = (date: string | null | undef
         return formatedDate
     }
     return date
+}
+
+
+export const getToken = () => {
+    return localStorage.getItem(tokenName) ? localStorage.getItem(tokenName) : ''
+}
+
+export const setToken = (token: string) => {
+    if (!token) return;
+
+    localStorage.setItem(tokenName, token)
+}
+
+export const removeToken = () => {
+    localStorage.removeItem(tokenName)
+}
+
+export const getUser = () => {
+    const userJson = localStorage.getItem(userName) ? localStorage.getItem(userName) : undefined;
+    if (!userJson)
+        return userJson
+
+    return JSON.parse(userJson)
+}
+
+export const setUser = (data: { user: string, role: EUserRole, id: string }) => {
+    if (!data) return;
+
+    const dataToJSON = JSON.stringify(data)
+
+    localStorage.setItem(userName, dataToJSON);
+}
+
+export const removeUser = () => {
+    localStorage.removeItem(userName)
 }

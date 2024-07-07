@@ -6,7 +6,7 @@ import { Button } from "@nextui-org/react";
 import { useAuthContext } from "@/store/auth/AuthContext";
 import { EUserRole, TUserRole } from "@/store/auth/auth.types";
 import { useLogout } from "@/customHooks/useUser";
-
+import userImg from '@/assets/user.png'
 
 const routes: Array<{
     path: string,
@@ -68,11 +68,11 @@ export const Sidebar = () => {
         }}>
             <div className="flex flex-col sidebar gap-10 h-full py-2 px-3">
                 <div className="flex flex-col gap-5 avatar pt-7 text-center">
-                    <div className="h-[150px]">
-                        <img src="" alt="" />
+                    <div className="h-[150px] rounded-3xl">
+                        <img src={userImg} alt="" />
                     </div>
 
-                    <p className="">Diego Bello</p>
+                    <p className="">{user?.user}</p>
                 </div>
 
                 <div className="flex flex-col justify-between flex-grow pt-12">

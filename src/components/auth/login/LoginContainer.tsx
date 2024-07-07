@@ -4,7 +4,7 @@ import { useAuthContext } from '@/store/auth/AuthContext';
 import { useEffect } from 'react';
 
 export const LoginContainer = () => {
-    const { user, fetchLogin, error, loading } = useLogin();
+    const { data, fetchLogin, error, loading } = useLogin();
     const { login } = useAuthContext();
 
     const forgotPassword = () => {
@@ -16,19 +16,21 @@ export const LoginContainer = () => {
     };
 
     const onSubmit = ({ username, password }: { username: string, password: string }) => {
-        fetchLogin({ username, password })
+        const uNoSpaces = username.trim();
+        const pNoSpaces = password.trim();
+        fetchLogin({ username: uNoSpaces, password: pNoSpaces })
     };
 
     useEffect(() => {
-        if (user) {
+        if (data?.user && data.token) {
+            const user = data.user;
             login({
-                username: user.user,
+                user: user.user,
                 id: user.id,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                role: user.role as any
-            });
+                role: user.role
+            }, data.token);
         }
-    }, [user]);
+    }, [data]);
 
     return (
         <>
