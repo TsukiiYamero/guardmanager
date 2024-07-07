@@ -39,7 +39,7 @@ export const LoginForm = ({
     const { isVisible, togglePassword } = useHandlePassword();
 
     return (
-        <div className={'px-[1.5rem] md:px-[2.5rem] py-[1.75rem] w-full sm:max-w-[380px] md:max-w-[640px] rounded-[10px] border-1 border-[#e4e4e7]'}>
+        <div className={'px-[1.5rem] md:px-[2.5rem] py-[4rem] w-full sm:max-w-[380px] md:max-w-[640px] rounded-[10px] border-1 border-[#e4e4e7]'}>
             <div className='w-full'>
 
                 <h2 className='text-[length:1.25rem] mb-7'>{title}</h2>
@@ -129,7 +129,7 @@ export const LoginForm = ({
 
             </div>
 
-            <div className='pt-[11px] relative'>
+            {/*             <div className='pt-[11px] relative'>
                 <p onClick={onForgotPassword} className='forgot-msg-login'>Olvidaste tu Password?</p>
 
 
@@ -147,7 +147,7 @@ export const LoginForm = ({
 
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
