@@ -5,10 +5,10 @@ import { EUserRole } from "@/store/auth/auth.types";
 /* cosas que necesitemos por aparte */
 export const routePaths = {
     profile: '/profile',
+    index: '/',
     /* user */
     today: '/today',
     week: '/week',
-    home: '/home',
 
     /* admin */
     schedules: '/schedules',

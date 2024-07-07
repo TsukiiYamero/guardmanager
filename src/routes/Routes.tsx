@@ -2,7 +2,7 @@ import { Locations } from "@/pages/admin/Locations";
 import { Schedules } from "@/pages/admin/Schedules";
 import { Workers } from "@/pages/admin/Workers";
 import { Login } from "@/pages/Login";
-import { NotFound } from "@/pages/NotFound";
+import { NotFound } from "@/pages/notFound/NotFound";
 import { Profile } from "@/pages/Profile";
 import { Unauthorized } from "@/pages/Unauthorized";
 import { Today } from "@/pages/worker/Today";
@@ -31,8 +31,6 @@ export const routerApp = createBrowserRouter(
             </Route>
 
             {/* user */}
-            <Route path={routePaths.today} element={<Today />} />
-            <Route path={routePaths.week} element={<Week />} />
             <Route element={<PrivateRoute roles={[EUserRole.USER]} />}>
                 <Route path={routePaths.today} element={<Today />} />
                 <Route path={routePaths.week} element={<Week />} />
