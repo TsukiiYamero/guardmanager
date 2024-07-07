@@ -1,4 +1,4 @@
-import { API_CONFIG, API_ENDPOINT } from '@/api/config'
+import { API_CONFIG } from '@/api/config'
 import httpClient from '@/api/httpClient'
 // import { guardsData } from '@/mocks/schedules.json'
 import { IGuard } from '@/types/guards.types'

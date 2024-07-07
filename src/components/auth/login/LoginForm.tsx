@@ -18,8 +18,6 @@ type Props = {
 
 export const LoginForm = ({
     loading, errorMessage,
-    handdleNotAUser,
-    onForgotPassword,
     onLogin
 }: Props) => {
     const { control, formState: { errors }, handleSubmit } = useForm({
