@@ -14,9 +14,9 @@ export async function getSchedulesData(): Promise<IScheduleItem[]> {
     const schedulesFormated = schedules.map(schedule => {
         const name = `${schedule.Guard.first_name} ${schedule.Guard.last_name}`
         const startDate = new Date(schedule.start_date)
-        const start = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
+        const start = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate() + 1}`
         const endDate = new Date(schedule.end_date)
-        const end = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
+        const end = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate() + 1}`
         
         return {
             id: schedule.schedule_id,
