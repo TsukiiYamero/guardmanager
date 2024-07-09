@@ -48,13 +48,13 @@ const requiredLongText = requiredString
   .min(8, "Mínimo 8 caracteres")
   .max(500, "Máximo 500 caracteres");
 
-export const createSchedule = yup.object<IScheduleItem>().shape({
+export const createSchedule = yup.object().shape({
   name: requiredString,
   start: requiredString,
   end: requiredString,
   location: requiredString,
   shift: requiredString
-});
+}) as yup.ObjectSchema<Partial<IScheduleItem>>;
 
 export const createWorkerValidation = yup.object({
   first_name: requiredString,
