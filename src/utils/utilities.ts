@@ -37,6 +37,8 @@ export const formatInternationalizedDateToSQLDate = (date: string | null | undef
             // console.log(zonedDateTime);
         }
         const formatedDate = `${zonedDateTime.year}-${String(zonedDateTime.month).padStart(2, '0')}-${String(zonedDateTime.day).padStart(2, '0')}`
+        console.log("formatedDate: ", formatedDate);
+        
 
         return formatedDate
     }

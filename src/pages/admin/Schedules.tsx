@@ -4,7 +4,7 @@ import { CustomDateInput } from "@/components/inputs/Date";
 import { FormTableModal } from "@/components/modals/FormTableModal";
 import { useConfirmDialog } from "@/customHooks/useConfirmDialog";
 import { MainLayout } from "@/layouts/MainLayout"
-import { addSchedule, getGuardsData, getLocationsData, getSchedulesData, getShiftsData, updateSchedule } from "@/services/schedule.service";
+import { addSchedule, deleteSchedule, getGuardsData, getLocationsData, getSchedulesData, getShiftsData, updateSchedule } from "@/services/schedule.service";
 import { IGuard } from "@/types/guards.types";
 import { ILocations } from "@/types/locations.types";
 import { IScheduleItem } from "@/types/schedules.types";
@@ -39,19 +39,21 @@ export const Schedules = () => {
         onOpen()
     }
     const handleDelete = async (item: IScheduleItem) => {
-        const deleteSchedule = await showDialog({
+        const removeSchedule = await showDialog({
             title: 'Eliminar horario',
             message: '¿Está seguro de eliminar el horario?'
         })
 
-        if (deleteSchedule) {
-            setSchedulesItems(prevState => {
-                const indexToRemove = prevState.findIndex(schedule => schedule === item)
-                return [
-                    ...prevState.slice(0, indexToRemove),
-                    ...prevState.slice(indexToRemove + 1)
-                ]
-            })
+        if (removeSchedule) {
+            // setSchedulesItems(prevState => {
+            //     const indexToRemove = prevState.findIndex(schedule => schedule === item)
+            //     return [
+            //         ...prevState.slice(0, indexToRemove),
+            //         ...prevState.slice(indexToRemove + 1)
+            //     ]
+            // })
+            await deleteSchedule(item.id || 0)
+            setReloadData(!reloadData)
         }
     }
 
@@ -64,8 +66,19 @@ export const Schedules = () => {
         if (startDate)
             data.start = formatInternationalizedDateToSQLDate(startDate)!
 
-        await updateSchedule(data)
-
+        console.log(data);
+        const location_id = locations.find(location => location.location_name === data.location)?.id ?? 0
+        const shift_id = shifts.find(shift => shift.shift_name === data.shift)?.id ?? 0
+        const guard_id = guards.find(guard => guard.full_name === data.name)?.id ?? 0
+        
+        await updateSchedule({ 
+            id: modalData?.id ?? 0,
+            startDate: data.start, 
+            endDate: data.end,
+            location_id,
+            shift_id,
+            guard_id 
+        })
         setReloadData(!reloadData)
         onOpenChange()
     }
@@ -79,7 +92,18 @@ export const Schedules = () => {
         if (startDate)
             data.start = formatInternationalizedDateToSQLDate(startDate)!
 
-        await addSchedule(data)
+        const location_id = locations.find(location => location.location_name === data.location)?.id ?? 0
+        const shift_id = shifts.find(shift => shift.shift_name === data.shift)?.id ?? 0
+        const guard_id = guards.find(guard => guard.full_name === data.name)?.id ?? 0
+        
+        await addSchedule({ 
+            id: modalData?.id ?? 0,
+            startDate: data.start, 
+            endDate: data.end,
+            location_id,
+            shift_id,
+            guard_id 
+        })
 
         setReloadData(!reloadData)
         onOpenChange()
@@ -128,6 +152,7 @@ export const Schedules = () => {
                     resolver={createSchedule}
                 >
                     <div className="flex flex-col gap-5">
+
                         <div className="form-table-item">
                             <AutocompleteInput
                                 items={guardsAutocomplete}
