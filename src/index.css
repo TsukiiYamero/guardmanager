@@ -51,9 +51,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary-color: #ba68c8;
+  --primary-color: #9100c3;
   --primary-color-45:#ba68c859;
   --secondary-color: #181818;
+
+  --bg-soft: #faebff;
+
+  --text-color-dark: #191729f0;
+  --text-color-dark-67: hsla(247, 27%, 13%, 0.674);
   
   --neutral-color-primary: #646464;
   --neutral-color-alt-primary: #909090;
@@ -66,7 +71,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
-    -webkit-text-fill-color: var(--main-text-color);
+    -webkit-text-fill-color: var(--text-color-dark);
     transition: background-color 5000s ease-in-out 0s;
     -webkit-background-clip: text;
 }
@@ -132,3 +137,35 @@ body {
   }
 }
 
+/* line */
+
+.custom-line {
+  width: 100%;
+  height: 44px;
+  display: grid;
+  position: relative;
+}
+
+.custom-line:after {
+  border-bottom: 1px solid var(--neutral-color-secondary);
+  width: 100%;
+  height: 50%;
+  content: " ";
+  position: absolute;
+  display: flex;
+}
+
+.custom-line span {
+  position: absolute;
+  width: fit-content;
+  display: flex;
+  justify-self: center;
+  border: 1px solid var(--neutral-color-secondary);
+  border-radius: 5px;
+  padding: 1px 6px;
+  top: 11px;
+  color: var(--text-color-dark);
+  background-color: rgb(247, 247, 247);
+  font-size: 14px;
+  z-index: 2;
+}

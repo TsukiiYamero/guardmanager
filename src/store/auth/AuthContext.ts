@@ -1,7 +1,13 @@
-import type { LoginI } from "@/types/login.types";
+import { IUser } from "@/store/auth/auth.types";
 import { createContext, useContext } from "react";
 
-export const AuthContext = createContext<LoginI>(null!);
+interface AuthContextType {
+    user: IUser | null;
+    login: (user: IUser, token: string) => void;
+    logout: () => void;
+}
+
+export const AuthContext = createContext<AuthContextType>(null!);
 
 export const useAuthContext = () => {
     const context = useContext(AuthContext);

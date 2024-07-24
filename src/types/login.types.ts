@@ -1,6 +1,6 @@
-export interface LoginI {
+/* export interface LoginI {
     email: string;
     password: string;
 }
 
-
+ */

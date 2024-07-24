@@ -1,5 +1,5 @@
 import { MainLayout } from "@/layouts/MainLayout"
-import { DataTable } from "@/components/"
+import { DataTable } from "@/components/dataTable/dataTable"
 import { TextInput } from "@/components/inputs/Text"
 import { FormTableModal } from "@/components/modals/FormTableModal"
 import { useLocations } from "@/customHooks/useLocations"
