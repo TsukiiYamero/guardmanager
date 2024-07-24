@@ -37,7 +37,7 @@ export const Workers = () => {
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
                 data={modalData}
-                title={modalData ? "Editar horario" : "Agregar horario"}
+                title={modalData ? "Editar trabajador" : "Agregar trabajador"}
                 onSubmit={modalData ? handleEditSubmit : handleAddSubmit}
                 resolver={modalData ? updateWorkerValidation : createWorkerValidation}
                 defaultValues={{
