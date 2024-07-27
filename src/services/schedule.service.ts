@@ -135,3 +135,44 @@ export async function deleteSchedule(id: number) {
     const responseData = await response.data
     console.log(responseData);
 }
+
+export async function getSchedulesByGuardId(id: number){
+    const response = await httpClient.get(`${API_CONFIG.api}${API_CONFIG.schedules}/allschedule?guard_id=${id}`)
+    const shedules : Array<any> = await response.data
+    const schedulesFormated: Array<IScheduleItem> = shedules.map( (shedule) => {
+        return {
+            id: shedule.schedule_id,
+            start: shedule.start_date +" "+ shedule.Shift.start_time,
+            end: shedule.end_date+" "+ shedule.Shift.end_time,
+            location: shedule.Location.location_name,
+            name: shedule.Guard.first_name + shedule.Guard.last_name,
+            shift: shedule.Shift.shift_name
+        }
+    })
+    console.log(schedulesFormated)
+    return schedulesFormated
+}
+
+  export async function getOneSchedule(guardId: number) {
+    
+      const response = await httpClient.get(`${API_CONFIG.api}${API_CONFIG.schedules}/schedule?guard_id=${guardId}`);
+      const shedules : Array<any> = await response.data
+
+      const schedulesFormated: Array<IScheduleItem> = shedules.map( (shedule) => {
+        return {
+            id: shedule.schedule_id,
+            start: shedule.start_date +" "+ shedule.Shift.start_time,
+            end: shedule.end_date+" "+ shedule.Shift.end_time,
+            location: shedule.Location.location_name,
+            name: shedule.Guard.first_name + shedule.Guard.last_name,
+            shift: shedule.Shift.shift_name
+        }
+    })
+    console.log(schedulesFormated)
+    return schedulesFormated
+  }
+  
+
+
+
+
