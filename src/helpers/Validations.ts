@@ -3,6 +3,7 @@ import { IUsers } from "@/types/users.types";
 import { IGuard } from "@/types/guards.types";
 import { IScheduleItem } from "@/types/schedules.types";
 import * as yup from "yup";
+import { ILocations } from "@/types/locations.types";
 
 
 const requiredString = yup
@@ -85,3 +86,17 @@ export const updateWorkerValidation = yup.object({
         .optional()
     })
 }) as yup.ObjectSchema<Partial<IGuard & IUsers>>;
+
+export const createLocationValidation = yup.object({
+  location_name: requiredString,
+  address: requiredLongText,
+  city: requiredString,
+  cellphone: phonenumber
+}) as yup.ObjectSchema<Partial<ILocations>>;
+
+export const updateLocationValidation = yup.object({
+  location_name: requiredString,
+  address: requiredLongText,
+  city: requiredString,
+  cellphone: phonenumber
+}) as yup.ObjectSchema<Partial<ILocations>>;
