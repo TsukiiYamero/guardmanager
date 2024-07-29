@@ -5,8 +5,8 @@ export const tokenName = 'authToken';
 export const userName = 'authUser';
 
 export const API_CONFIG = {
-    baseUrl: 'https://guardmanager.jeanpaultc.tech',
-    // baseUrl: 'http://localhost:3900',
+    //baseUrl: 'https://guardmanager.jeanpaultc.tech',
+    baseUrl: 'http://localhost:3900',
     api: "/api",
     login: '/login',
     logout: '/logout',
